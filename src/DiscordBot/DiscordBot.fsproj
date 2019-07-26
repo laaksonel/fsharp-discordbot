@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Utils/Json.fs" />
+    <Compile Include="Utils/Logging.fs" />
+    <Compile Include="Utils/WebSocketClient.fs" />
+    <Compile Include="Dto/DiscordDto.fs" />
+    <Compile Include="EventHandlers/HeartbeatEventHandler.fs" />
+    <Compile Include="EventHandlers/EventHandler.fs" />
+    <Compile Include="DiscordBot.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FSharp.Control.Reactive" Version="4.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="WebSocketSharp" Version="1.0.3-rc9" />
+  </ItemGroup>
+
+</Project>
