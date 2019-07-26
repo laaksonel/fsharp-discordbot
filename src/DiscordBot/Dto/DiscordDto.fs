@@ -1,4 +1,4 @@
-﻿namespace Dto
+﻿namespace DiscordBot.Dto
 
 module DiscordResponseDto =
   open System
@@ -57,11 +57,7 @@ module DiscordRequestDto =
     compress: bool
   }
 
-  // TODO: Change to use RequestDto
-  type HeartbeatDto = {
-    op: int
-    d: Nullable<int> // Always null
-  }
+  type HeartbeatDto = RequestDto<Nullable<int>>
 
 module DtoMapping =
   open DiscordResponseDto
@@ -89,14 +85,14 @@ module DtoMapping =
 
     extractData json
 
-  let jsonToDto json updateSeqNumber =
+  let jsonToDto json =
     let readMetadata json = 
       deserialize<DiscordMetaData> json
 
     match readMetadata json with
     | Ok metadata ->
-      updateSeqNumber metadata.s
       readPayload json metadata
+      |> Result.map(fun dto -> (dto, metadata.s))
     | Error ex -> Error ex
 
   let dtoToJson dto = serialize dto

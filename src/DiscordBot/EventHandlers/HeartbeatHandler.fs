@@ -1,17 +1,16 @@
 ﻿namespace DiscordBot.EventHandler
 
-module HearbeatEventHandler =
+module HeartbeatHandler =
   open DiscordBot.Utils.Logger
   open FSharp.Control.Reactive
-  open Dto
+  open DiscordBot.Dto
   open DiscordRequestDto
-  open WebSocketSharp // TODO: Get rid of web socket dependencies in event handlers, hide behind function
   open System
 
   let private heartbeatTimer interval =
     new System.Timers.Timer(float interval, AutoReset = true)
 
-  let private sendHeartbeat optionalSeqNum (socket: WebSocket) =
+  let private sendHeartbeat optionalSeqNum sendData =
     let seqNumber =
       Option.ofNullable optionalSeqNum
       |> Option.map (fun x -> Nullable<int>(x))
@@ -25,14 +24,14 @@ module HearbeatEventHandler =
     |> fun seqNum -> { op = 1; d = seqNum }
     |> DtoMapping.dtoToJson
     |> logOutgoing
-    |> socket.Send
+    |> sendData
 
-  let initHeartbeat interval seqNumberO socket = 
+  let initHeartbeat interval seqNumberO sendData = 
     log Info "Initializing heartbeat with interval %d" interval
 
     let heartbeatTask = heartbeatTimer interval
     let sendWithSeqNumber seqNumber =
-      sendHeartbeat seqNumber socket
+      sendHeartbeat seqNumber sendData
 
     heartbeatTask.Elapsed
     |> Observable.withLatestFrom (fun _ y -> y) seqNumberO

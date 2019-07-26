@@ -9,7 +9,7 @@ let readToken (argv: string[]) =
 [<EntryPoint>]
 let main argv =
   match readToken argv with
-  | Some token -> DiscordBot.start token
-  | None -> printfn "Bot token is missing"
+  | Some token -> DiscordBot.startBot token
+  | None -> printfn "Access token is missing"
 
   0

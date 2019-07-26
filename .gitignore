@@ -77,9 +77,9 @@ TestResult.xml
 
 # Paket dependency manager
 .paket/paket.exe
+.paket/Paket.Restore.targets
 paket-files/
 
 # FAKE - F# Make
 .fake/
-
 launchSettings.json

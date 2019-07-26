@@ -10,7 +10,7 @@
     <Compile Include="Utils/Logging.fs" />
     <Compile Include="Utils/WebSocketClient.fs" />
     <Compile Include="Dto/DiscordDto.fs" />
-    <Compile Include="EventHandlers/HeartbeatEventHandler.fs" />
+    <Compile Include="EventHandlers\HeartbeatHandler.fs" />
     <Compile Include="EventHandlers/EventHandler.fs" />
     <Compile Include="DiscordBot.fs" />
     <Compile Include="Program.fs" />
